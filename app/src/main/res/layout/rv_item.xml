@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/imgItemThumb"
+            android:layout_width="@dimen/item_image_size"
+            android:layout_height="@dimen/item_image_size"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/null_description"
+            android:scaleType="fitXY"
+            android:src="@color/neutral_90"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvItemTitle"
+            style="@style/textTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:maxLines="1"
+            android:text="@string/item_title_sample"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgItemThumb"
+            app:layout_constraintTop_toTopOf="@id/imgItemThumb" />
+
+        <TextView
+            android:id="@+id/tvItemDescription"
+            style="@style/textDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="@string/item_description_sample"
+            app:layout_constraintEnd_toEndOf="@id/tvItemTitle"
+            app:layout_constraintStart_toStartOf="@id/tvItemTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvItemTitle" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clPriceInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/tvItemTitle"
+            app:layout_constraintStart_toStartOf="@id/tvItemTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvItemDescription">
+
+            <TextView
+                android:id="@+id/tvNewPrice"
+                style="@style/priceNew"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:text="@string/new_price_sample"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvOldPrice"
+                style="@style/priceOld"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/old_price_sample"
+                app:layout_constraintStart_toEndOf="@id/tvNewPrice"
+                app:layout_constraintTop_toTopOf="@id/tvNewPrice" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shapeSale"
+                android:layout_width="57dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="7dp"
+                android:src="@color/orange"
+                app:layout_constraintStart_toEndOf="@id/tvOldPrice"
+                app:layout_constraintTop_toTopOf="@id/tvNewPrice"
+                app:shapeAppearanceOverlay="@style/specificCornerCut" />
+
+            <TextView
+                android:id="@+id/tvDiscountPercentProduct"
+                style="@style/priceNew"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/discount_sample"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/shapeSale"
+                app:layout_constraintEnd_toEndOf="@id/shapeSale"
+                app:layout_constraintStart_toStartOf="@id/shapeSale"
+                app:layout_constraintTop_toTopOf="@id/shapeSale" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imgStarCart"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/null_description"
+            android:src="@drawable/ic_star"
+            app:layout_constraintEnd_toStartOf="@id/tvRating"
+            app:layout_constraintTop_toBottomOf="@id/clPriceInfo"
+            app:tint="@color/orange" />
+
+        <TextView
+            android:id="@+id/tvRating"
+            style="@style/textDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/product_rating_sample"
+            app:layout_constraintEnd_toEndOf="@id/clPriceInfo"
+            app:layout_constraintTop_toBottomOf="@id/clPriceInfo" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
