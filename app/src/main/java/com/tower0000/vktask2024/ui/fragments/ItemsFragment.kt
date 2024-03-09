@@ -1,16 +1,19 @@
-package com.tower0000.vktask2024.ui
+package com.tower0000.vktask2024.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tower0000.vktask2024.R
 import com.tower0000.vktask2024.databinding.FragmentItemsBinding
+import com.tower0000.vktask2024.ui.adapters.ItemsAdapter
 import com.tower0000.vktask2024.ui.util.ResourceState
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,8 +34,20 @@ class ItemsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupItemsRv()
-        vm.loadItems()
+
+        binding.nestedScroll.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+            if (v.getChildAt(0).bottom <= v.height + scrollY) {
+                vm.loadItems()
+            }
+        })
+
+        productsAdapter.onClick = {
+            val b = Bundle().apply { putParcelable("item", it) }
+            findNavController().navigate(R.id.action_itemsFragment_to_itemInfoFragment, b)
+        }
+
         vm.itemsData.observe(viewLifecycleOwner) {
             when (it) {
                 is ResourceState.Loading -> {

@@ -1,6 +1,7 @@
-package com.tower0000.vktask2024.domain
+package com.tower0000.vktask2024.domain.usecase
 
-import com.tower0000.vktask2024.data.ItemListResponse
+import com.tower0000.vktask2024.data.model.ItemListResponse
+import com.tower0000.vktask2024.domain.repository.ItemsRepository
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 

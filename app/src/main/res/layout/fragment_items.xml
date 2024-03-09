@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/nestedScroll"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.ItemsFragment">
+    android:fillViewport="true"
+    tools:context=".ui.fragments.ItemsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,7 +20,8 @@
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvItems"
@@ -28,7 +31,7 @@
             android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progressbar"
+            app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/rv_item" />
         
     </androidx.constraintlayout.widget.ConstraintLayout>

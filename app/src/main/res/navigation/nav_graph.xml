@@ -7,7 +7,24 @@
 
     <fragment
         android:id="@+id/itemsFragment"
-        android:name="com.tower0000.vktask2024.ui.ItemsFragment"
+        android:name="com.tower0000.vktask2024.ui.fragments.ItemsFragment"
         android:label="fragment_items"
-        tools:layout="@layout/fragment_items" />
+        tools:layout="@layout/fragment_items" >
+        <action
+            android:id="@+id/action_itemsFragment_to_itemInfoFragment"
+            app:destination="@id/itemInfoFragment"
+            app:enterAnim="@anim/slide_to_left"
+            app:exitAnim="@anim/exit_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemInfoFragment"
+        android:name="com.tower0000.vktask2024.ui.fragments.ItemInfoFragment"
+        android:label="ItemInfoFragment"
+        tools:layout="@layout/fragment_item_info">
+        <argument
+            android:name="item"
+            app:argType="com.tower0000.vktask2024.data.model.Item" />
+    </fragment>
+
+
 </navigation>

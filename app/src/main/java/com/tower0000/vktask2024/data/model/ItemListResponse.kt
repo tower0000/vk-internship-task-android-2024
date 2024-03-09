@@ -1,9 +1,12 @@
-package com.tower0000.vktask2024.data
+package com.tower0000.vktask2024.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class ItemListResponse(val products: List<Item>)
 
+@Parcelize
 data class Item(
 
     @SerializedName("id") val itemId: Int,
@@ -28,4 +31,4 @@ data class Item(
 
     @SerializedName("images") val itemImages: List<String>
 
-)
+) : Parcelable

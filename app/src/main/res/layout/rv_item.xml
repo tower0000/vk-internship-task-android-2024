@@ -31,10 +31,6 @@
                 android:src="@color/neutral_90" />
         </androidx.cardview.widget.CardView>
 
-
-
-
-
         <TextView
             android:id="@+id/tvItemTitle"
             style="@style/textTitle"

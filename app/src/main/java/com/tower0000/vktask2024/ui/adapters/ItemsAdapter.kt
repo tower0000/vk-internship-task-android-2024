@@ -1,4 +1,4 @@
-package com.tower0000.vktask2024.ui
+package com.tower0000.vktask2024.ui.adapters
 
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.tower0000.vktask2024.data.Item
+import com.tower0000.vktask2024.data.model.Item
 import com.tower0000.vktask2024.databinding.RvItemBinding
 import kotlin.math.roundToInt
 
@@ -69,5 +69,5 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder>() {
         }
     }
 
-    private var onClick: ((Item) -> Unit)? = null
+    var onClick: ((Item) -> Unit)? = null
 }
