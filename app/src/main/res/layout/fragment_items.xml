@@ -10,20 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/rightGuideLine"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.98" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/leftGuideLine"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.02" />
-
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressbar"
             android:layout_width="match_parent"
@@ -38,9 +24,10 @@
             android:id="@+id/rvItems"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
-            app:layout_constraintStart_toStartOf="@id/leftGuideLine"
+            android:layout_marginTop="15dp"
+            android:clipToPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/progressbar"
             tools:listitem="@layout/rv_item" />
         

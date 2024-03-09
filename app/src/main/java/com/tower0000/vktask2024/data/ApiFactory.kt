@@ -5,8 +5,9 @@ import io.reactivex.rxjava3.core.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-class ApiFactory : ItemsRepository {
+class ApiFactory @Inject constructor(): ItemsRepository {
     private val BASE_URL = "https://dummyjson.com/"
 
     private val retrofit: Retrofit = Retrofit.Builder()

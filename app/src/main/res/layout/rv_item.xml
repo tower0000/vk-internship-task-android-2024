@@ -11,17 +11,29 @@
         android:layout_height="140dp"
         android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/imgItemThumb"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardImg"
             android:layout_width="@dimen/item_image_size"
             android:layout_height="@dimen/item_image_size"
+            app:cardCornerRadius="8dp"
             android:layout_marginStart="16dp"
-            android:contentDescription="@string/null_description"
-            android:scaleType="fitXY"
-            android:src="@color/neutral_90"
+            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgItemThumb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/null_description"
+                android:scaleType="center"
+                android:src="@color/neutral_90" />
+        </androidx.cardview.widget.CardView>
+
+
+
+
 
         <TextView
             android:id="@+id/tvItemTitle"
@@ -33,8 +45,8 @@
             android:maxLines="1"
             android:text="@string/item_title_sample"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imgItemThumb"
-            app:layout_constraintTop_toTopOf="@id/imgItemThumb" />
+            app:layout_constraintStart_toEndOf="@id/cardImg"
+            app:layout_constraintTop_toTopOf="@id/cardImg" />
 
         <TextView
             android:id="@+id/tvItemDescription"
@@ -70,30 +82,31 @@
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="2dp"
                 android:text="@string/old_price_sample"
                 app:layout_constraintStart_toEndOf="@id/tvNewPrice"
-                app:layout_constraintTop_toTopOf="@id/tvNewPrice" />
+                app:layout_constraintTop_toTopOf="@id/tvNewPrice"
+                app:layout_constraintBottom_toBottomOf="@id/tvNewPrice"/>
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/shapeSale"
-                android:layout_width="57dp"
+                android:layout_width="50dp"
                 android:layout_height="23dp"
                 android:layout_marginStart="7dp"
-                android:src="@color/orange"
+                android:layout_marginTop="2dp"
+                android:src="@color/red"
                 app:layout_constraintStart_toEndOf="@id/tvOldPrice"
                 app:layout_constraintTop_toTopOf="@id/tvNewPrice"
                 app:shapeAppearanceOverlay="@style/specificCornerCut" />
 
             <TextView
-                android:id="@+id/tvDiscountPercentProduct"
+                android:id="@+id/tvDiscountPercent"
                 style="@style/priceNew"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/discount_sample"
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/shapeSale"
                 app:layout_constraintEnd_toEndOf="@id/shapeSale"
                 app:layout_constraintStart_toStartOf="@id/shapeSale"

@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import com.tower0000.vktask2024.R
 import com.tower0000.vktask2024.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
