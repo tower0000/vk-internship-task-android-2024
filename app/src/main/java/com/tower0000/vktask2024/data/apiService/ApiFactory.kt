@@ -22,4 +22,8 @@ class ApiFactory @Inject constructor(): ItemsRepository {
     override fun getItems(skip: Int, limit: Int): Single<ItemListResponse> {
         return itemsApi.getProducts(skip, limit)
     }
+
+    override fun searchItems(query: String, skip: Int, limit: Int): Single<ItemListResponse> {
+        return itemsApi.searchProducts(query, skip, limit)
+    }
 }

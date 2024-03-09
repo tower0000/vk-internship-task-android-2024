@@ -1,39 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/nestedScroll"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     tools:context=".ui.fragments.ItemsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:id="@+id/searchBar"
+        style="@style/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/searchBarHeight"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressbar"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:indeterminate="true"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
+        <ImageView
+            android:id="@+id/buttonSearch"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="3dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/null_description"
+            android:padding="8dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:tint="@color/neutral_90" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvItems"
+
+        <EditText
+            android:id="@+id/edSearchRequest"
+            style="@style/textSearchBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:clipToPadding="false"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="7dp"
+            android:autofillHints=""
+            android:background="@null"
+            android:hint="@string/hint_search"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColorHint="@color/neutral_60"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/rv_item" />
-        
+            app:layout_constraintStart_toEndOf="@id/buttonSearch"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.core.widget.NestedScrollView>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:layout_marginTop="5dp"
+        tools:context=".ui.fragments.ItemsFragment"
+        app:layout_constraintTop_toBottomOf="@id/searchBar"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:indeterminate="true"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvItems"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/rv_item" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

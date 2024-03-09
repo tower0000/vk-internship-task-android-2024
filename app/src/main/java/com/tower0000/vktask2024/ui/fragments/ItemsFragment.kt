@@ -16,6 +16,7 @@ import com.tower0000.vktask2024.databinding.FragmentItemsBinding
 import com.tower0000.vktask2024.ui.adapters.ItemsAdapter
 import com.tower0000.vktask2024.ui.util.ResourceState
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.Format
 
 @AndroidEntryPoint
 class ItemsFragment : Fragment() {
@@ -46,6 +47,11 @@ class ItemsFragment : Fragment() {
         productsAdapter.onClick = {
             val b = Bundle().apply { putParcelable("item", it) }
             findNavController().navigate(R.id.action_itemsFragment_to_itemInfoFragment, b)
+        }
+
+        binding.buttonSearch.setOnClickListener {
+            vm.resetSearchPage()
+            vm.searchItems(binding.edSearchRequest.text.toString())
         }
 
         vm.itemsData.observe(viewLifecycleOwner) {

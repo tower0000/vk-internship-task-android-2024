@@ -9,5 +9,6 @@
 
     <dimen name="item_image_size">100dp</dimen>
     <dimen name="bottomMenuHeight">60dp</dimen>
+    <dimen name="searchBarHeight">44dp</dimen>
 
 </resources>

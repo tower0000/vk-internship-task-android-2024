@@ -34,4 +34,20 @@
 
     </style>
 
+    <style name="textSearchBar">
+        <item name="android:fontFamily">@font/poppins_light</item>
+        <item name="android:textColor">@color/neutral_90</item>
+        <item name="android:textSize">@dimen/h3TextSize</item>
+    </style>
+
+    <style name="searchBar">
+        <item name="singleLine">true</item>
+        <item name="android:background">@drawable/search_bar_background</item>
+        <item name="android:textColorHint">@color/neutral_90</item>
+        <item name="hintTextColor">@color/neutral_90</item>
+        <item name="android:textSize">@dimen/h4TextSize</item>
+        <item name="android:fontFamily">@font/poppins_light</item>
+
+    </style>
+
 </resources>

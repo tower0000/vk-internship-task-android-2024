@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.tower0000.vktask2024.data.model.Item
 import com.tower0000.vktask2024.data.model.ItemListResponse
 import com.tower0000.vktask2024.domain.usecase.GetItemListUseCase
+import com.tower0000.vktask2024.domain.usecase.SearchItemUseCase
 import com.tower0000.vktask2024.ui.util.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -19,7 +20,8 @@ const val FIRST_PAGE_INDEX = 0
 
 @HiltViewModel
 class ItemsViewModel @Inject constructor(
-    private val getItemListUseCase: GetItemListUseCase
+    private val getItemListUseCase: GetItemListUseCase,
+    private val searchItemUseCase: SearchItemUseCase
 ) : ViewModel() {
     private val _itemsData =
         MutableLiveData<ResourceState<ItemListResponse>>(ResourceState.Unspecified())
@@ -55,13 +57,38 @@ class ItemsViewModel @Inject constructor(
         pagingInfo.page++
     }
 
+    fun searchItems(query: String) {
+        _itemsData.postValue(ResourceState.Loading())
+        compositeDisposable.add(
+            searchItemUseCase.execute(
+                query,
+                skip = pagingInfo.searchPage * pagingInfo.limit,
+                limit = pagingInfo.limit)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _itemsData.postValue(ResourceState.Success(it))
+                    Log.d("ItemsViewModel", "$it")
+                }, { e ->
+                    _itemsData.postValue(ResourceState.Error(e.message.toString()))
+                    e.printStackTrace()
+                })
+        )
+        pagingInfo.searchPage++
+    }
+
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
+    }
+
+    fun resetSearchPage() {
+        pagingInfo.searchPage = FIRST_PAGE_INDEX
     }
 }
 
 internal data class PagingInfo(
     var page: Int = FIRST_PAGE_INDEX,
+    var searchPage: Int = FIRST_PAGE_INDEX,
     val limit: Int = ITEMS_LIMIT
 )
