@@ -8,9 +8,11 @@ import com.tower0000.vktask2024.data.model.Item
 import com.tower0000.vktask2024.data.model.ItemListResponse
 import com.tower0000.vktask2024.domain.usecase.GetItemListUseCase
 import com.tower0000.vktask2024.domain.usecase.SearchItemUseCase
+import com.tower0000.vktask2024.ui.util.PageMode
 import com.tower0000.vktask2024.ui.util.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
@@ -32,49 +34,51 @@ class ItemsViewModel @Inject constructor(
     private val compositeDisposable = CompositeDisposable()
 
     init {
-        loadItems()
+        getAllProducts()
+    }
+    fun loadMoreItems() {
+        when (pagingInfo.pageMode) {
+            PageMode.BASE -> getAllProducts()
+            PageMode.SEARCH -> getProductsByQuery(pagingInfo.query)
+            PageMode.CATEGORY -> Unit
+        }
     }
 
-    fun loadItems() {
+    fun switchToSearchMode(query: String) {
+        resetItemPages()
+        getProductsByQuery(query)
+        pagingInfo.pageMode = PageMode.SEARCH
+        pagingInfo.query = query
+    }
+
+    fun switchToBaseMode() {
+        resetItemPages()
+        getAllProducts()
+        pagingInfo.pageMode = PageMode.BASE
+    }
+
+    fun switchToCategoryMode() {
+
+    }
+
+    private fun fetchItems(
+        useCase: Single<ItemListResponse>
+    ) {
         _itemsData.postValue(ResourceState.Loading())
         compositeDisposable.add(
-            getItemListUseCase.execute(
-                skip = pagingInfo.page * pagingInfo.limit,
-                limit = pagingInfo.limit
-            )
+            useCase
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    it.products.forEach { item -> productsMap[item.itemId] = item }
-                    val formattedMapValues = ItemListResponse(productsMap.values.toList())
-                    _itemsData.postValue(ResourceState.Success(formattedMapValues))
-                    Log.d("ItemsViewModel", "$it")
+                .subscribe({ response ->
+                    response.products.forEach { item -> productsMap[item.itemId] = item }
+                    val adaptedMapValues = ItemListResponse(productsMap.values.toList())
+                    _itemsData.postValue(ResourceState.Success(adaptedMapValues))
+                    Log.d("ItemsViewModel", "$response")
                 }, { e ->
                     _itemsData.postValue(ResourceState.Error(e.message.toString()))
                     e.printStackTrace()
                 })
         )
-        pagingInfo.page++
-    }
-
-    fun searchItems(query: String) {
-        _itemsData.postValue(ResourceState.Loading())
-        compositeDisposable.add(
-            searchItemUseCase.execute(
-                query,
-                skip = pagingInfo.searchPage * pagingInfo.limit,
-                limit = pagingInfo.limit)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    _itemsData.postValue(ResourceState.Success(it))
-                    Log.d("ItemsViewModel", "$it")
-                }, { e ->
-                    _itemsData.postValue(ResourceState.Error(e.message.toString()))
-                    e.printStackTrace()
-                })
-        )
-        pagingInfo.searchPage++
     }
 
     override fun onCleared() {
@@ -82,13 +86,39 @@ class ItemsViewModel @Inject constructor(
         compositeDisposable.clear()
     }
 
-    fun resetSearchPage() {
+    private fun getAllProducts() {
+        fetchItems(
+            getItemListUseCase.execute(
+                skip = pagingInfo.page * pagingInfo.limit,
+                limit = pagingInfo.limit
+            )
+        )
+        pagingInfo.page++
+    }
+
+
+    private fun getProductsByQuery(query: String) {
+        fetchItems(
+            searchItemUseCase.execute(
+                query,
+                skip = pagingInfo.searchPage * pagingInfo.limit,
+                limit = pagingInfo.limit
+            )
+        )
+        pagingInfo.searchPage++
+    }
+
+    private fun resetItemPages() {
         pagingInfo.searchPage = FIRST_PAGE_INDEX
+        pagingInfo.page = FIRST_PAGE_INDEX
+        productsMap.clear()
     }
 }
 
 internal data class PagingInfo(
+    var pageMode: PageMode = PageMode.BASE,
     var page: Int = FIRST_PAGE_INDEX,
     var searchPage: Int = FIRST_PAGE_INDEX,
-    val limit: Int = ITEMS_LIMIT
+    val limit: Int = ITEMS_LIMIT,
+    var query: String = ""
 )

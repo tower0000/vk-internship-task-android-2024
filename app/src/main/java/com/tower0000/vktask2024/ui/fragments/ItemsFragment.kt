@@ -1,5 +1,6 @@
 package com.tower0000.vktask2024.ui.fragments
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +41,7 @@ class ItemsFragment : Fragment() {
 
         binding.nestedScroll.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
             if (v.getChildAt(0).bottom <= v.height + scrollY) {
-                vm.loadItems()
+                vm.loadMoreItems()
             }
         })
 
@@ -50,8 +51,14 @@ class ItemsFragment : Fragment() {
         }
 
         binding.buttonSearch.setOnClickListener {
-            vm.resetSearchPage()
-            vm.searchItems(binding.edSearchRequest.text.toString())
+            vm.switchToSearchMode(binding.edSearchRequest.text.toString())
+            binding.buttonResetSearch.visibility = View.VISIBLE
+        }
+
+        binding.buttonResetSearch.setOnClickListener {
+            binding.edSearchRequest.text = null
+            binding.buttonResetSearch.visibility = View.INVISIBLE
+            vm.switchToBaseMode()
         }
 
         vm.itemsData.observe(viewLifecycleOwner) {
@@ -63,6 +70,14 @@ class ItemsFragment : Fragment() {
                 is ResourceState.Success -> {
                     binding.progressbar.visibility = View.INVISIBLE
                     productsAdapter.differ.submitList(it.data?.products)
+                    if (binding.edSearchRequest.text.toString() != "") {
+                        binding.tvSearchResults.text = getString(
+                            R.string.search_results,
+                            it.data?.products?.size,
+                            binding.edSearchRequest.text
+                        )
+                        binding.tvSearchResults.visibility = View.VISIBLE
+                    } else binding.tvSearchResults.visibility = View.INVISIBLE
                 }
 
                 is ResourceState.Error -> {
@@ -78,6 +93,7 @@ class ItemsFragment : Fragment() {
             }
         }
     }
+
     private fun setupItemsRv() {
         binding.rvItems.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
