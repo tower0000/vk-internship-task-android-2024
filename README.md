@@ -15,14 +15,6 @@
 <img src="screenshots/main.png" width="250">  <img src="screenshots/category.png" width="250">  <img src="screenshots/search.png" width="250">  <img src="screenshots/details.png" width="250">
 
 ## Описание
-### Технологии, используемые в проекте:
-
-- **MVVM**
-- **Hilt**
-- **RxJava**
-- **Retrofit**
-- **Clean Architecture**
-
 ### Технологии:
 
 - **Clean Architecture**
