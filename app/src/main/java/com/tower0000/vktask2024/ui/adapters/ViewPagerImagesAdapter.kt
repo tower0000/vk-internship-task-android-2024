@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tower0000.vktask2024.databinding.ViewpagerImageItemBinding
 
-class ViewPagerImagesAdapter : RecyclerView.Adapter<ViewPagerImagesAdapter.ViewPagerImagesViewHolder>() {
+class ViewPagerImagesAdapter :
+    RecyclerView.Adapter<ViewPagerImagesAdapter.ViewPagerImagesViewHolder>() {
 
     inner class ViewPagerImagesViewHolder(
         private val binding: ViewpagerImageItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(imagePath: String){
+        fun bind(imagePath: String) {
             Glide.with(itemView).load(imagePath).into(binding.imageProductDetails)
         }
     }

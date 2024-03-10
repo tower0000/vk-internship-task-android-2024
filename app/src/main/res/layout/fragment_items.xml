@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="@color/neutral_10"
     tools:context=".ui.fragments.ItemsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,8 +15,7 @@
         android:layout_height="@dimen/searchBarHeight"
         android:layout_marginStart="5dp"
         android:layout_marginTop="42dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonCategoryMenu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,7 +25,9 @@
             android:layout_height="30dp"
             android:layout_marginStart="3dp"
             android:backgroundTint="@color/white"
-            android:contentDescription="@string/null_description"
+            android:clickable="true"
+            android:contentDescription="@string/button_search_description"
+            android:focusable="true"
             android:padding="8dp"
             android:src="@drawable/ic_search"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -58,28 +60,43 @@
             android:layout_height="30dp"
             android:layout_marginEnd="3dp"
             android:backgroundTint="@color/white"
-            android:contentDescription="@string/null_description"
+            android:clickable="true"
+            android:contentDescription="@string/button_reset_search_description"
+            android:focusable="true"
             android:padding="2dp"
             android:src="@drawable/ic_close"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/neutral_70"
-            android:visibility="invisible"/>
-
+            app:tint="@color/neutral_70" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ImageView
+        android:id="@+id/buttonCategoryMenu"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="3dp"
+        android:clickable="true"
+        android:contentDescription="@string/button_category_menu_description"
+        android:focusable="true"
+        android:padding="4dp"
+        android:src="@drawable/ic_dots"
+        app:layout_constraintBottom_toBottomOf="@id/searchBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/searchBar"
+        app:tint="@color/neutral_90" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="7dp"
         android:fillViewport="true"
-        android:layout_marginTop="5dp"
-        tools:context=".ui.fragments.ItemsFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchBar"
-        app:layout_constraintBottom_toBottomOf="parent">
+        tools:context=".ui.fragments.ItemsFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -90,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:indeterminate="true"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -100,14 +117,45 @@
                 android:id="@+id/tvSearchResults"
                 style="@style/textDescription"
                 android:layout_width="wrap_content"
-                android:textSize="@dimen/h4TextSize"
                 android:layout_height="0dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/search_result_sample"
-                android:visibility="invisible"/>
+                android:textSize="@dimen/h3TextSize"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/buttonResetCategory"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:contentDescription="@string/button_reset_category_description"
+                android:focusable="true"
+                android:padding="4dp"
+                android:src="@drawable/ic_close"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/neutral_70" />
+
+            <TextView
+                android:id="@+id/tvCategory"
+                style="@style/textDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="15dp"
+                android:maxLines="1"
+                android:text="@string/search_result_sample"
+                android:textSize="@dimen/h3TextSize"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@id/buttonResetCategory"
+                app:layout_constraintTop_toTopOf="@id/buttonResetCategory"
+                app:layout_constraintBottom_toBottomOf="@id/buttonResetCategory"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvItems"

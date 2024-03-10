@@ -26,4 +26,12 @@ class ApiFactory @Inject constructor(): ItemsRepository {
     override fun searchItems(query: String, skip: Int, limit: Int): Single<ItemListResponse> {
         return itemsApi.searchProducts(query, skip, limit)
     }
+
+    override fun getCategories(): Single<List<String>> {
+        return itemsApi.getCategories()
+    }
+
+    override fun getItemsByCategory(category: String): Single<ItemListResponse> {
+        return itemsApi.getCategoryItems(category)
+    }
 }

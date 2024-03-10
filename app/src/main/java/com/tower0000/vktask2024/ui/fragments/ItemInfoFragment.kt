@@ -54,7 +54,7 @@ class ItemInfoFragment : Fragment() {
             tvProductOldPrice.text = String.format("%.2f", currentItem.price)
             tvProductOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
 
-            tvProductTitle.text = currentItem.title.uppercase()
+            tvProductTitle.text = currentItem.title
             tvRating.text = String.format("%.2f", currentItem.itemRating)
             tvProductDescription.text = String.format("Description:\n%s", currentItem.description)
             tvBrand.text = String.format("Brand:  %s", currentItem.itemBrand)

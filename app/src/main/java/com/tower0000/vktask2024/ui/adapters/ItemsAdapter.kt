@@ -29,7 +29,7 @@ class ItemsAdapter : RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder>() {
                 tvOldPrice.text = String.format("%.2f", item.price)
                 tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
 
-                tvItemTitle.text = item.title.uppercase()
+                tvItemTitle.text = item.title
                 tvRating.text = String.format("%.2f", item.itemRating)
                 tvItemDescription.text = item.description
             }

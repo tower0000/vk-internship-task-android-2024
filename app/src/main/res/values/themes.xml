@@ -6,6 +6,7 @@
         <item name="colorOnPrimary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:colorBackground">@color/white</item>
     </style>
 
     <style name="Theme.VkTask2024" parent="Base.Theme.VkTask2024" />
